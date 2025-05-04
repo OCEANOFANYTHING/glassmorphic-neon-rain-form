@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Rain Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .drop {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(138, 43, 226, 0.6));
+            border-radius: 0 0 5px 5px;
+            animation: rain 5s linear infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes rain {
+            0% {
+                transform: translateY(-100px);
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px));
+            }
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.37),
+                inset 0 0 12px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 60%
+            );
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 
+                0 12px 40px 0 rgba(138, 43, 226, 0.4),
+                inset 0 0 16px rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(138, 43, 226, 0.6);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+            outline: none;
+        }
+        
+        .glass-button {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(148, 0, 211, 0.2));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .glass-button:hover {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(148, 0, 211, 0.3));
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            transform: translateY(-3px);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+        
+        .glass-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: 0.6s;
+        }
+        
+        .glass-button:hover::before {
+            left: 100%;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #8a2be2, 0 0 20px #8a2be2;
+        }
+        
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            pointer-events: none;
+            animation: ripple 0.6s linear;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .glow-border {
+            position: relative;
+        }
+        
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 24px;
+            background: linear-gradient(45deg, #8a2be2, #9400d3, #4b0082);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .glass-card:hover .glow-border::after {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <!-- Rain animation -->
+    <div class="rain" id="rain"></div>
+    
+    <!-- Main card -->
+    <div class="glass-card w-full max-w-md p-8 relative overflow-hidden glow-border floating">
+        <div class="relative">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <i class="fas fa-cloud-rain text-4xl text-white mb-3 drop-shadow-[0_0_5px_rgba(138,43,226,0.6)]"></i>
+                <h1 class="text-3xl font-bold text-white neon-text mb-2">Neon Rain Form</h1>
+                <p class="text-purple-200 opacity-80">Fill the form below and let the magic happen</p>
+            </div>
+            
+            <!-- Form -->
+            <form id="submitForm" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-purple-100 mb-1">Your Name</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-user text-purple-300 text-opacity-70"></i>
+                        </div>
+                        <input type="text" id="name" class="glass-input w-full pl-10 pr-4 py-3 rounded-xl focus:outline-none placeholder-purple-300 placeholder-opacity-50" placeholder="John Doe" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-purple-100 mb-1">Email Address</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-envelope text-purple-300 text-opacity-70"></i>
+                        </div>
+                        <input type="email" id="email" class="glass-input w-full pl-10 pr-4 py-3 rounded-xl focus:outline-none placeholder-purple-300 placeholder-opacity-50" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="message" class="block text-sm font-medium text-purple-100 mb-1">Your Message</label>
+                    <textarea id="message" rows="4" class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none placeholder-purple-300 placeholder-opacity-50" placeholder="Type your message here..."></textarea>
+                </div>
+                
+                <div class="flex items-center">
+                    <input id="terms" type="checkbox" class="w-4 h-4 rounded bg-purple-900 border-purple-300 focus:ring-purple-500">
+                    <label for="terms" class="ml-2 text-sm text-purple-100 opacity-80">I agree to the <a href="#" class="text-purple-300 hover:underline hover:text-purple-200">terms and conditions</a></label>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="glass-button w-full py-3 px-4 rounded-xl flex items-center justify-center relative overflow-hidden">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Submit Form
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Floating elements -->
+    <div class="absolute top-1/4 left-1/4 w-8 h-8 rounded-full bg-purple-500 opacity-20 blur-md animate-pulse"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-12 h-12 rounded-full bg-blue-500 opacity-20 blur-md animate-pulse delay-300"></div>
+    <div class="absolute top-1/3 right-1/3 w-6 h-6 rounded-full bg-pink-500 opacity-20 blur-md animate-pulse delay-700"></div>
+    
+    <script>
+        // Create rain drops
+        function createRain() {
+            const rainContainer = document.getElementById('rain');
+            const rainCount = 100;
+            
+            for (let i = 0; i < rainCount; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('drop');
+                
+                // Random properties for each drop
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = 2 + Math.random() * 3;
+                const height = 30 + Math.random() * 50;
+                
+                drop.style.left = `${left}%`;
+                drop.style.animationDelay = `${delay}s`;
+                drop.style.animationDuration = `${duration}s`;
+                drop.style.height = `${height}px`;
+                
+                rainContainer.appendChild(drop);
+            }
+        }
+        
+        // Ripple effect for button
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = `${size}px`;
+            ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+        
+        // Form submission
+        document.getElementById('submitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const card = document.querySelector('.glass-card');
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+            submitBtn.disabled = true;
+            
+            // Add glow effect
+            card.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.6), inset 0 0 16px rgba(255, 255, 255, 0.2)';
+            card.style.borderColor = 'rgba(138, 43, 226, 0.5)';
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Create success effect
+                card.style.boxShadow = '0 8px 32px 0 rgba(0, 255, 0, 0.6), inset 0 0 16px rgba(255, 255, 255, 0.2)';
+                card.style.borderColor = 'rgba(0, 255, 0, 0.5)';
+                
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Success!';
+                submitBtn.style.background = 'linear-gradient(135deg, rgba(0, 255, 0, 0.2), rgba(50, 205, 50, 0.2))';
+                submitBtn.style.borderColor = 'rgba(0, 255, 0, 0.5)';
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    card.style.boxShadow = '0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 0 12px rgba(255, 255, 255, 0.1)';
+                    card.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Submit Form';
+                    submitBtn.style.background = 'linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(148, 0, 211, 0.2))';
+                    submitBtn.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                    submitBtn.disabled = false;
+                    
+                    // Reset form
+                    document.getElementById('submitForm').reset();
+                }, 2000);
+            }, 1500);
+        });
+        
+        // Add ripple effect to button
+        document.getElementById('submitBtn').addEventListener('click', createRipple);
+        
+        // Initialize rain on load
+        window.addEventListener('load', createRain);
+    </script>
+</body>
+</html>
